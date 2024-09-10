@@ -15,52 +15,30 @@ class Validator {
             this.__ = locale;
         }
     }
-
+    
     /**
-     * @desc This function is being used to validate email address
-     * @author Growexx
-     * @since 01/03/2021
-     * @param {string} email Email
+     * @desc This function is used to validate part number for multipart upload.
+     * @param {number} partNumber Part number of the file
      */
-    email (email) {
-        if (!email) {
-            throw new GeneralError(this.__(REQUIRED, 'Email'), 400);
-        }
-
-        if (!CONSTANTS.REGEX.EMAIL.test(email)) {
-            throw new GeneralError(this.__(INVALID, 'Email'), 400);
+    partNumber(partNumber) {
+        if (typeof partNumber !== 'number' || partNumber <= 0) {
+            throw new GeneralError(this.__(INVALID, 'Part number'), 400);
         }
     }
 
     /**
-     * @desc This function is being used to check password
-     * @author Growexx
-     * @since 01/03/2021
-     * @param {string} password Password
+     * @desc This function is used to validate parts array for completing multipart upload.
+     * @param {Array} parts Array of parts containing ETag and part number
      */
-    password (password) {
-        if (!password) {
-            throw new GeneralError(this.__(REQUIRED, 'Password'), 400);
+    validateParts(parts) {
+        if (!Array.isArray(parts) || parts.length === 0) {
+            throw new GeneralError(this.__(INVALID, 'Parts'), 400);
         }
 
-        if (password.length !== 64) {
-            throw new GeneralError(this.__(INVALID, 'Password'), 400);
-        }
-    }
-
-    /**
-     * @desc This function is being used to validate otp
-     * @author Growexx
-     * @param {string} id id
-     * @since 27/03/2021
-     */
-    otp (otp, field = 'OTP') {
-        if (!otp) {
-            throw new GeneralError(this.__(REQUIRED, field), 400);
-        }
-
-        if (otp.toString().length !== CONSTANTS.OTPLENGTH) {
-            throw new GeneralError(this.__(INVALID, field), 400);
+        for (const part of parts) {
+            if (!part.ETag || typeof part.partNumber !== 'number') {
+                throw new GeneralError(this.__(INVALID, 'Part data'), 400);
+            }
         }
     }
 }

@@ -9,29 +9,20 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('swagger-jsdoc');
 const swaggerDef = require('./public/swagger.json');
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const methodOverride = require('method-override');
 const i18n = require('i18n');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const Connection = require('./connection');
+const fileUploadRoutes = require('./routes/uploadRoutes');
 
 // Global Variables
-global.DB_CONNECTION = require('mongoose');
 global.CONSOLE_LOGGER = require('./util/logger');
 global.CONSTANTS = require('./util/constants');
 global.MESSAGES = require('./locales/en.json');
 global.MOMENT = require('moment');
 global._ = require('lodash');
-
-const connectionToDb = () => {
-    Connection.checkConnection();
-};
-
-connectionToDb();
 
 if (process.env.LOCAL === 'true') {
     app.use(express.static('../jsdocs/jsdocs'));
@@ -84,7 +75,7 @@ app.get('/', (req, res) => {
         date: MOMENT()
     });
 });
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+
+app.use('/api/file-upload',fileUploadRoutes);
 
 module.exports = app;
