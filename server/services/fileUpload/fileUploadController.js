@@ -20,17 +20,6 @@ const fileUploadController = {
             res.status(500).json({ error: error.message });
         }
     },
-
-    uploadParts: async (req, res) => {
-        try {
-            const { presignedUrls, fileParts } = req.body;
-            const partsData = await fileUploadService.uploadParts(presignedUrls, fileParts);
-            res.status(200).json({ partsData });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
     completeUpload: async (req, res) => {
         try {
             const { bucketName, key, uploadId, parts } = req.body;

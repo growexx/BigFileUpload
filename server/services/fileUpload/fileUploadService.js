@@ -25,28 +25,6 @@ const fileUploadService = {
 
         return presignedUrls;
     },
-
-    uploadParts: async (presignedUrls, fileParts) => {
-        const axios = require('axios');
-
-        const uploadResults = await Promise.all(presignedUrls.map((url, index) => {
-            const options = {
-                method: 'PUT',
-                url: url,
-                headers: {
-                    'Content-Type': 'application/octet-stream',
-                },
-                data: fileParts[index]
-            };
-            return axios(options);
-        }));
-
-        return uploadResults.map((result, index) => ({
-            PartNumber: index + 1,
-            ETag: result.headers.etag
-        }));
-    },
-
     completeMultipartUpload: async (bucketName, key, uploadId, parts) => {
         const params = {
             Bucket: bucketName,
