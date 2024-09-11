@@ -4,6 +4,5 @@ const fileUploadController = require('../services/fileUpload/fileUploadControlle
 
 router.post('/initiate-upload', fileUploadController.initiateUpload);
 router.post('/generate-presigned-urls', fileUploadController.generatePresignedUrls);
-router.post('/uploadParts',fileUploadController.uploadParts);
 router.post('/complete-upload', fileUploadController.completeUpload);
 module.exports = router;
