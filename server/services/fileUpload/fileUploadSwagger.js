@@ -1,7 +1,7 @@
 const message = require('../../locales/en.json');
 
 module.exports = swaggerJson => {
-    swaggerJson.paths['/file/upload/initiate'] = {
+    swaggerJson.paths['/api/file-upload/initiate-upload'] = {
         post: {
             security: [{
                 bearerAuth: []
@@ -47,7 +47,7 @@ module.exports = swaggerJson => {
         }
     };
 
-    swaggerJson.paths['/file/upload/presigned-urls'] = {
+    swaggerJson.paths['/api/file-upload/generate-presigned-urls'] = {
         post: {
             security: [{
                 bearerAuth: []
@@ -105,7 +105,7 @@ module.exports = swaggerJson => {
         }
     };
 
-    swaggerJson.paths['/file/upload/complete'] = {
+    swaggerJson.paths['/api/file-upload/complete-upload'] = {
         post: {
             security: [{
                 bearerAuth: []
