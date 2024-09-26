@@ -1,7 +1,7 @@
 const swaggerUi = require('swagger-ui-express');
 let swaggerJson = require('../public/swagger.json');
 
-
+swaggerJson = require('../services/fileUpload/fileUploadSwagger')(swaggerJson);
 const baseURL = process.env.BASE_URL.split('://');
 swaggerJson.host = baseURL[1];
 swaggerJson.info.description = `HostName / URL : ${swaggerJson.host}`;
