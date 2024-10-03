@@ -17,10 +17,10 @@ const fileUploadService = {
                 Key: key,
                 UploadId: uploadId,
                 PartNumber: partNumber,
-                Expires: 3600, 
+                Expires: 3600,
             };
 
-            return s3.getSignedUrlPromise('uploadPart', params);
+            return s3.getSignedUrlPromise('uploadPart', params).promise();
         }));
 
         return presignedUrls;

@@ -76,6 +76,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/api/file-upload',fileUploadRoutes);
+app.use('/api/file-upload', fileUploadRoutes);
 
 module.exports = app;
