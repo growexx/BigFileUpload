@@ -17,7 +17,7 @@ const fileUploadService = {
                 Key: key,
                 UploadId: uploadId,
                 PartNumber: partNumber,
-                Expires: 3600,
+                Expires: 86400,
             };
 
             return s3.getSignedUrlPromise('uploadPart', params).promise();
